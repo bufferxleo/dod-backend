@@ -26,7 +26,7 @@ const signup = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { userName, password } = req.body;
-    const exist = await User.findOne({ where: { userName: userName } });
+    const exist = await User.findOne({ userName });
     if (exist) {
       if (password === exist.password) {
         return res
@@ -46,7 +46,7 @@ const login = async (req, res) => {
 const editPassword = async (req, res) => {
   try {
     const { userName, enteredPassword, newPassword } = req.body;
-    const exist = await User.findOne({ where: { userName: userName } });
+    const exist = await User.findOne({ userName });
     if (exist) {
       if (enteredPassword === exist.password) {
         await User.update(
@@ -68,7 +68,7 @@ const editPassword = async (req, res) => {
 const editUrl = async (req, res) => {
   try {
     const { userName, enteredPassword, newUrl } = req.body;
-    const exist = await User.findOne({ where: { userName: userName } });
+    const exist = await User.findOne({ userName });
     if (exist) {
       if (enteredPassword === exist.password) {
         await User.update({ url: newUrl }, { where: { userName: userName } });
@@ -88,7 +88,7 @@ const editDomain = async (req, res) => {
   try {
     const { userName, enteredPassword, newDomainName } = req.body;
     console.log(userName, enteredPassword, newDomainName);
-    const exist = await User.findOne({ where: { userName: userName } });
+    const exist = await User.findOne({ userName });
     if (exist) {
       if (enteredPassword === exist.password) {
         await User.update(
@@ -110,8 +110,8 @@ const editDomain = async (req, res) => {
 const searchDomain = async (req, res) => {
   try {
     const { domainName } = req.body;
-    console.log(domainName)
-    const exist = await User.findOne({domainName});
+    console.log(domainName);
+    const exist = await User.findOne({ domainName });
     if (exist) {
       res.status(200).json({ message: "domain exist", data: exist.url });
     } else {
