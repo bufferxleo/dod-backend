@@ -49,7 +49,7 @@ const editPassword = async (req, res) => {
     const exist = await User.findOne({ userName });
     if (exist) {
       if (enteredPassword === exist.password) {
-        await User.update(
+        await User.updateOne(
           { password: newPassword },
           { where: { userName: userName } }
         );
@@ -71,7 +71,7 @@ const editUrl = async (req, res) => {
     const exist = await User.findOne({ userName });
     if (exist) {
       if (enteredPassword === exist.password) {
-        await User.update({ url: newUrl }, { where: { userName: userName } });
+        await User.updateOne({ userName: userName }, { $set: { url: newUrl } });
         res.status(200).json({ message: "url changed sucessfully" });
       } else {
         res.status(400).json({ message: "Old password is wrong" });
@@ -91,7 +91,7 @@ const editDomain = async (req, res) => {
     const exist = await User.findOne({ userName });
     if (exist) {
       if (enteredPassword === exist.password) {
-        await User.update(
+        await User.updateOne(
           { domainName: newDomainName },
           { where: { userName: userName } }
         );
