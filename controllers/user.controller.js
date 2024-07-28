@@ -110,7 +110,8 @@ const editDomain = async (req, res) => {
 const searchDomain = async (req, res) => {
   try {
     const { domainName } = req.body;
-    const exist = await User.findOne({ where: { domainName: domainName } });
+    console.log(domainName)
+    const exist = await User.findOne({domainName});
     if (exist) {
       res.status(200).json({ message: "domain exist", data: exist.url });
     } else {
