@@ -50,8 +50,8 @@ const editPassword = async (req, res) => {
     if (exist) {
       if (enteredPassword === exist.password) {
         await User.updateOne(
-          { password: newPassword },
-          { where: { userName: userName } }
+          { userName: userName },
+          { $set: { password: newPassword } }
         );
         res.status(200).json({ message: "password changed sucessfully" });
       } else {
@@ -92,8 +92,8 @@ const editDomain = async (req, res) => {
     if (exist) {
       if (enteredPassword === exist.password) {
         await User.updateOne(
-          { domainName: newDomainName },
-          { where: { userName: userName } }
+          { userName: userName },
+          { $set: { domainName: newDomainName } }
         );
         res.status(200).json({ message: "domain changed sucessfully" });
       } else {
